@@ -1,11 +1,12 @@
 # useful libraries to import
 
+from turtle import color
 import pandas as pd
 import numpy as np
-import  sklearn.decomposition
+import sklearn.decomposition
 import matplotlib.pyplot as plt
 
-def plot_pca( pca , 
+def plot_pca(pca , 
              bigwig_metadata=None,
              metadata_label_column=None, 
              alpha=0.5, 
@@ -31,10 +32,18 @@ def plot_pca( pca ,
         labels = None
         
     plt.figure(figsize=figsize)
-    plt.scatter(pca.components_[0],
+    p = plt.scatter(pca.components_[0],
                 pca.components_[1],
                 c = labels,
-                alpha=alpha,
-                lw=lw
-   )
+                alpha = alpha,
+                lw = lw)
+    if labels is not None: 
+        plt.legend(handles = p.legend_elements()[0], 
+                   labels = le.classes_.tolist())
+        plt.legend(handles = p.legend_elements()[0], 
+                   labels = le.classes_.tolist())
+        plt.title('PCA Plot Colored By: '+metadata_label_column)
+                   
+    plt.xlabel('PC1')
+    plt.ylabel('PC2')
 
